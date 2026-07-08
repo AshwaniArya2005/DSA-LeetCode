@@ -16,11 +16,11 @@
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
         List<List<Integer>> res = new ArrayList<>();
         if(root == null){
             return res;
         }
+        q.offer(root);
         while (!q.isEmpty()) {
             int size = q.size();
             List<Integer> temp = new ArrayList<>();

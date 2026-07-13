@@ -20,15 +20,13 @@ class Solution {
         return a.get(k-1);
     }
 
-    public ArrayList<Integer> inorder(TreeNode root, ArrayList<Integer> a){
+    public void inorder(TreeNode root, ArrayList<Integer> a){
         if(root == null){
-            return a;
+            return;
         }
         inorder(root.left, a);
         a.add(root.val);
         inorder(root.right,a);
-
-        return a;
     }
 
  

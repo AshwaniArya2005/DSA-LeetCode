@@ -1,18 +1,33 @@
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
         int m = triangle.size();
-        int dp[][] = new int[m][m];
-        for(int i = 0; i < m;i++){
-            dp[m-1][i] = triangle.get(m-1).get(i); 
-        }
-        for(int i = m-2;i>=0;i--){
+        // int dp[][] = new int[m][m];
+        // for(int i = 0; i < m;i++){
+        //     dp[m-1][i] = triangle.get(m-1).get(i); 
+        // }
+        // for(int i = m-2;i>=0;i--){
+        //     for(int j = i;j>=0;j--){
+        //         int down = triangle.get(i).get(j) + dp[i+1][j];
+        //         int diagonal = triangle.get(i).get(j) + dp[i+1][j+1];
+        //         dp[i][j] = Math.min(down,diagonal);
+        //     }
+        // }
+        // return dp[0][0];
+
+        int dp[] = new int[m];
+        for(int i = 0; i<m;i++) dp[i] = triangle.get(m-1).get(i);
+
+        for(int i =m-2;i>=0;i--){
+            int[] temp = new int[m];
             for(int j = i;j>=0;j--){
-                int down = triangle.get(i).get(j) + dp[i+1][j];
-                int diagonal = triangle.get(i).get(j) + dp[i+1][j+1];
-                dp[i][j] = Math.min(down,diagonal);
+                int down = triangle.get(i).get(j) + dp[j];
+                int diagonal = triangle.get(i).get(j) + dp[j+1];
+                temp[j] = Math.min(down,diagonal);
             }
+            dp = temp;
+            
         }
-        return dp[0][0];
+        return dp[0];
         
     }
 

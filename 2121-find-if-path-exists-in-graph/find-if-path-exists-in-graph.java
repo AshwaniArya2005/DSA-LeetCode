@@ -1,33 +1,34 @@
 class Solution {
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        ArrayList<ArrayList<Integer>> al = new ArrayList<>();
-        for(int i = 0; i < n; i++){
-            al.add(new ArrayList<>());
+        boolean vis[] = new boolean[n];
+        ArrayList<ArrayList<Integer>> adj  =new ArrayList<>();
+        for(int i = 0 ; i<n;i++){
+            adj.add(new ArrayList<>());
         }
-        addEdge(al,edges);
-        boolean[] vis = new boolean[al.size()];
-        if(dfs(source,al, destination, vis)){
+        for(int[] i : edges){
+            int u = i[0];
+            int v = i[1];
+
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        if(dfs(adj, source, destination, vis)){
             return true;
         }
         return false;
     }
 
-    public void addEdge(ArrayList<ArrayList<Integer>> al, int[][] edges){
-        for(int[] edge : edges){
-            al.get(edge[0]).add(edge[1]);
-            al.get(edge[1]).add(edge[0]);
-        }
-    }
-
-    public boolean dfs(int source, ArrayList<ArrayList<Integer>> al, int dest, boolean[] vis){
-        if(source == dest){
+    boolean dfs(ArrayList<ArrayList<Integer>> adj, int src, int dest, boolean[] vis){
+        if(src == dest){
             return true;
         }
-        vis[source] = true;
+        vis[src] = true;
 
-        for(int n : al.get(source)){
-            if(!vis[n] && dfs(n,al,dest,vis)){
-                return true;
+        for(int i : adj.get(src)){
+            if(!vis[i]){
+                if(dfs(adj,i,dest,vis)){
+                    return true;
+                }
             }
         }
         return false;
